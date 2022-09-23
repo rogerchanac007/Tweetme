@@ -11,6 +11,6 @@ def tweet_detail_view(request, id=1):
 def tweet_list_view(request):
     queryset = Tweet.objects.all()
     context = {
-        "object":queryset,
+        "objects":queryset,
     }
     return render(request, "tweets/list_view.html", context)
