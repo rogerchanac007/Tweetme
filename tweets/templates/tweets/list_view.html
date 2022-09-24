@@ -1,7 +1,10 @@
+{% include './search_form.html'%}
 {% for object in objects%}
     <p>
     {{object.user}}<br>
     {{object.content}}<br>
     {{object.timestamp}}
     </p>
+{% empty %}
+    Tweets not found
 {% endfor%}

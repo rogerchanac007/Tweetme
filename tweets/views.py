@@ -13,9 +13,16 @@ def tweet_detail_view(request, id=1):
     return render(request, "tweets/detail_view.html", context)
 
 def tweet_list_view(request):
-    queryset = Tweet.objects.all()
+
+    def get_queryset(*args, **kwargs):
+        qs = Tweet.objects.all()
+        query = request.GET.get("q" or None)
+        if query:
+            qs = qs.filter(content__icontains=query)
+        return qs
+    
     context = {
-        "objects":queryset,
+        "objects":get_queryset(),
     }
     return render(request, "tweets/list_view.html", context)
 

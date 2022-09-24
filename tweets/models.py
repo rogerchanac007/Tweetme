@@ -1,7 +1,6 @@
 from django.db import models
 from django.conf import settings
 from django.core.exceptions import ValidationError
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 def validate_content(value):
     content = value
