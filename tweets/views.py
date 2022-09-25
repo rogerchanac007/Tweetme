@@ -5,6 +5,9 @@ from .forms  import TweetModelForm
 from django.views.generic.edit import UpdateView, DeleteView
 from django.urls import reverse_lazy
 
+def home(request):
+    return render(request, 'tweets/home.html')
+
 def tweet_detail_view(request, id=1):
     obj = Tweet.objects.get(id=id)
     context = {
@@ -15,11 +18,11 @@ def tweet_detail_view(request, id=1):
 def tweet_list_view(request):
 
     def get_queryset(*args, **kwargs):
-        qs = Tweet.objects.all()
-        query = request.GET.get("q" or None)
+        qs = Tweet.objects.all()#Seleccionamos todos los valores
+        query = request.GET.get("q" or None)#Seleccionamos el valor q de la url
         if query:
-            qs = qs.filter(content__icontains=query)
-        return qs
+            qs = qs.filter(content__icontains=query)#Filtramos en base a el q obtenido de la url
+        return qs #Se retornan los valores a la vista
     
     context = {
         "objects":get_queryset(),
