@@ -2,13 +2,18 @@
 {% block content%}
 {% include './search_form.html'%}
 {% for object in objects%}
-    <p>
-    {{object.user}}<br>
-    {{object.content}}<br>
-    {{object.timestamp}}|
-    <a href="{%url 'tweet_update' object.pk %}">View</a>
-    </p>
+<div class="media">
+    <div class="media-left">
+        {% if object.image %}
+        <img class="align-self-start mr-3" src="..." alt="Generic placeholder image">
+        {% endif %}
+    </div>
+    <div class="media-body mb-4">
+        {{object.content}}<br>
+        via {{object.user}} | {{object.timestamp}} ago | <a href="{%url 'tweet_update' object.pk %}">View</a>
+    </div>
+</div>
 {% empty %}
     Tweets not found
-{% endfor%}
+{% endfor %}
 {% endblock %}
