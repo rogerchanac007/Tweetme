@@ -20,7 +20,7 @@ urlpatterns = [
     path('home/', home, name="home"),
     path('create/', tweet_create_view),
     path('list/', tweet_list_view, name="tweet_list"),
-    path('detail/<id>/', tweet_detail_view),
+    path('detail/<id>/', tweet_detail_view, name="tweet_detail"),
     path('update/<pk>/', TweetUpdateView.as_view(), name="tweet_update"),
-    path('delete/<pk>/', TweetDeleteView.as_view(), name="delete_view"),
+    path('delete/<pk>/', TweetDeleteView.as_view(), name="tweet_delete"),
 ]

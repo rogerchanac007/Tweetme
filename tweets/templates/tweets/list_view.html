@@ -5,7 +5,8 @@
     <p>
     {{object.user}}<br>
     {{object.content}}<br>
-    {{object.timestamp}}
+    {{object.timestamp}}|
+    <a href="{%url 'tweet_update' object.pk %}">View</a>
     </p>
 {% empty %}
     Tweets not found

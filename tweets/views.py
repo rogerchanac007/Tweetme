@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Tweet
 from .forms  import TweetModelForm
 from django.views.generic.edit import UpdateView, DeleteView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 
 def home(request):
     return render(request, 'tweets/home.html')
@@ -29,9 +29,12 @@ def tweet_list_view(request):
     }
     return render(request, "tweets/list_view.html", context)
 
+    def get_absolute_url(self):
+        return reverse('tweet_update', kwargs={"pk", self.pk})
+
 def tweet_create_view(request):
     form = TweetModelForm(request.POST)
-    if form.is_valid() and request.user.authenticated():
+    if form.is_valid() and request.user.is_authenticated:
         instance = form.save(commit=False)
         instance.user = request.user
         instance.save()
@@ -49,7 +52,7 @@ class TweetUpdateView(LoginRequiredMixin, UpdateView):
     success_url = "/tweets/list"
     login_url = "/admin/"
 
-class TweetDeleteView(DeleteView):
+class TweetDeleteView(LoginRequiredMixin, DeleteView):
     model = Tweet
     template_name = 'tweets/delete_view.html'
     success_url = reverse_lazy("tweet_list")
