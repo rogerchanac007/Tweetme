@@ -18,7 +18,7 @@ from .views import tweet_detail_view, tweet_list_view, tweet_create_view, TweetU
 
 urlpatterns = [
     path('home/', home, name="home"),
-    path('create/', tweet_create_view),
+    path('create/', tweet_create_view, name="tweet_create"),
     path('list/', tweet_list_view, name="tweet_list"),
     path('detail/<id>/', tweet_detail_view, name="tweet_detail"),
     path('update/<pk>/', TweetUpdateView.as_view(), name="tweet_update"),

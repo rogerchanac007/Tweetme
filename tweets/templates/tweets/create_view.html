@@ -1,9 +1,5 @@
 {% extends "base.html" %}
 {% block content%}
-<form action="" method="POST">
-    {%csrf_token%}
-    {{form.as_p}}
-    <input type="submit" value="tweet">
-</form>
+    {% include './form.html' with form=form btn_title="Tweet"%}
 {% endblock %}
 

@@ -24,8 +24,12 @@ def tweet_list_view(request):
             qs = qs.filter(content__icontains=query)#Filtramos en base a el q obtenido de la url
         return qs #Se retornan los valores a la vista
     
+    form = TweetModelForm
+    url_form = reverse_lazy("tweet_create")
     context = {
         "objects":get_queryset(),
+        "form":form,
+        "url_form": url_form,
     }
     return render(request, "tweets/list_view.html", context)
 
