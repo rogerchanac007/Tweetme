@@ -13,8 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path
+from django.urls import path, include
 from .views import tweet_detail_view, tweet_list_view, tweet_create_view, TweetUpdateView, TweetDeleteView, home
+from rest_framework import routers
+from .viewset import TweetViewSet
+
+router = routers.DefaultRouter()
+router.register('tweets', TweetViewSet)
 
 urlpatterns = [
     path('home/', home, name="home"),
@@ -23,4 +28,5 @@ urlpatterns = [
     path('detail/<id>/', tweet_detail_view, name="tweet_detail"),
     path('update/<pk>/', TweetUpdateView.as_view(), name="tweet_update"),
     path('delete/<pk>/', TweetDeleteView.as_view(), name="tweet_delete"),
+    path('api/v1.0/', include(router.urls)),
 ]
